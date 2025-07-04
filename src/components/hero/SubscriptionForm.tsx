@@ -45,7 +45,7 @@ const SubscriptionForm = () => {
   };
 
   return (
-    <div className="card-neon max-w-lg">
+    <div id="hero-form" className="card-neon max-w-lg">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid sm:grid-cols-2 gap-4">
           <div>

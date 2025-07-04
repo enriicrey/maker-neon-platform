@@ -1,8 +1,9 @@
 
 import { Link } from 'react-router-dom';
-import { ArrowRight, Zap, Users, Rocket, Star } from 'lucide-react';
+import { ArrowRight, Zap, Users, Rocket } from 'lucide-react';
 import Layout from '../components/Layout';
 import HeroSection from '../components/HeroSection';
+import BenefitsAndSocialProof from '../components/BenefitsAndSocialProof';
 
 const Index = () => {
   const features = [
@@ -34,6 +35,9 @@ const Index = () => {
     <Layout>
       {/* Hero Section */}
       <HeroSection />
+
+      {/* Benefits and Social Proof Section */}
+      <BenefitsAndSocialProof />
 
       {/* Stats Section */}
       <section className="py-20 bg-dark-surface">
