@@ -77,6 +77,8 @@ export default {
 				'glow': 'glow 2s ease-in-out infinite alternate',
 				'fade-in': 'fadeIn 0.5s ease-in-out',
 				'slide-up': 'slideUp 0.5s ease-out',
+				'slide-in-right': 'slideInRight 0.3s ease-out',
+				'slide-out-right': 'slideOutRight 0.3s ease-out',
 			},
 			keyframes: {
 				glow: {
@@ -90,6 +92,14 @@ export default {
 				slideUp: {
 					'from': { transform: 'translateY(20px)', opacity: '0' },
 					'to': { transform: 'translateY(0)', opacity: '1' }
+				},
+				slideInRight: {
+					'from': { transform: 'translateX(100%)', opacity: '0' },
+					'to': { transform: 'translateX(0)', opacity: '1' }
+				},
+				slideOutRight: {
+					'from': { transform: 'translateX(0)', opacity: '1' },
+					'to': { transform: 'translateX(100%)', opacity: '0' }
 				}
 			},
 			borderRadius: {
