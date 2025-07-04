@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Zap, Users, Rocket, Star } from 'lucide-react';
 import Layout from '../components/Layout';
+import HeroSection from '../components/HeroSection';
 
 const Index = () => {
   const features = [
@@ -32,43 +33,7 @@ const Index = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-dark-bg via-dark-bg/90 to-dark-surface"></div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="mb-6 inline-flex items-center space-x-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2">
-              <Star className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">Nueva plataforma disponible</span>
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              El futuro del <br />
-              <span className="text-gradient">Mundo Maker 3D</span>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Descubre tutoriales exclusivos, conecta con la comunidad más innovadora 
-              y lleva tus proyectos 3D al siguiente nivel.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/suscripcion" className="btn-neon inline-flex items-center space-x-2">
-                <span>Comenzar Ahora</span>
-                <ArrowRight size={20} />
-              </Link>
-              <Link to="/newsletter" className="btn-outline-neon">
-                Ver Newsletter
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Animated background elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-primary/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-32 h-32 bg-neon-cyan/20 rounded-full blur-xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 w-40 h-40 bg-primary/10 rounded-full blur-2xl animate-pulse delay-500"></div>
-      </section>
+      <HeroSection />
 
       {/* Stats Section */}
       <section className="py-20 bg-dark-surface">
