@@ -4,6 +4,8 @@ import { ArrowRight, Zap, Users, Rocket } from 'lucide-react';
 import Layout from '../components/Layout';
 import HeroSection from '../components/HeroSection';
 import BenefitsAndSocialProof from '../components/BenefitsAndSocialProof';
+import FinalCTA from '../components/FinalCTA';
+import ScrollToTop from '../components/ScrollToTop';
 
 const Index = () => {
   const features = [
@@ -82,21 +84,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary/10 to-neon-cyan/10">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            ¿Listo para comenzar tu <span className="text-gradient">viaje 3D</span>?
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Únete a miles de makers que ya están transformando sus ideas en realidad.
-          </p>
-          <Link to="/suscripcion" className="btn-neon inline-flex items-center space-x-2">
-            <span>Suscríbete Ahora</span>
-            <ArrowRight size={20} />
-          </Link>
-        </div>
-      </section>
+      {/* Final CTA Section */}
+      <FinalCTA />
+
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </Layout>
   );
 };
