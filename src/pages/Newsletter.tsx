@@ -21,7 +21,7 @@ const Newsletter = () => {
   } = useNewsletterSearch();
 
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-  const totalCount = useCountUp(127, 2000);
+  const totalCount = useCountUp(127);
 
   const handleNewsletterClick = (newsletter: any) => {
     // In a real app, this would navigate to the newsletter detail page
