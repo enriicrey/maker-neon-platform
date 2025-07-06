@@ -1,5 +1,5 @@
-
 import { Clock, Eye, Share2, MessageCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Newsletter } from '@/types/newsletter';
 
 interface NewsletterCardProps {
@@ -8,6 +8,8 @@ interface NewsletterCardProps {
 }
 
 const NewsletterCard = ({ newsletter, onClick }: NewsletterCardProps) => {
+  const navigate = useNavigate();
+  
   const categoryLabels = {
     'drops-exclusivos': '🔥 Drops Exclusivos',
     'tutoriales-tecnicos': '🛠️ Tutoriales Técnicos',
@@ -19,6 +21,8 @@ const NewsletterCard = ({ newsletter, onClick }: NewsletterCardProps) => {
   const handleClick = () => {
     if (onClick) {
       onClick(newsletter);
+    } else {
+      navigate(`/newsletter/${newsletter.id}`);
     }
   };
 
