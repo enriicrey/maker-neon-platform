@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Mail, Users, Download, RotateCcw } from 'lucide-react';
 import Layout from '../components/Layout';
@@ -21,7 +20,7 @@ const Newsletter = () => {
   } = useNewsletterSearch();
 
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-  const totalCount = useCountUp(127);
+  const totalCount = useCountUp({ end: 127 });
 
   const handleNewsletterClick = (newsletter: any) => {
     // In a real app, this would navigate to the newsletter detail page
