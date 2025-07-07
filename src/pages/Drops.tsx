@@ -1,7 +1,7 @@
-
 import { useState, useEffect } from 'react';
 import { Package, Download, Star, Clock, Heart, Eye, Filter, Grid3X3, List, Search, ChevronDown } from 'lucide-react';
 import Layout from '../components/Layout';
+import ProductCard from '../components/drops/ProductCard';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -338,152 +338,14 @@ const Drops = () => {
               ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
               : 'grid-cols-1'
           }`}>
-            {filteredDrops.map((drop, index) => {
-              const statusBadge = getStatusBadge(drop.status);
-              const stockIndicator = getStockIndicator(drop.stock);
-              const isWishlisted = wishlist.includes(drop.id.toString());
-              
-              return (
-                <Card
-                  key={drop.id}
-                  className={`group cursor-pointer transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10 ${
-                    drop.featured 
-                      ? 'md:col-span-2 md:row-span-2 border-2 border-yellow-500/50 bg-gradient-to-br from-yellow-500/5 to-primary/5' 
-                      : 'hover:border-primary/30'
-                  } ${viewMode === 'list' ? 'flex-row' : ''}`}
-                >
-                  <div className={`relative ${viewMode === 'list' ? 'w-48 flex-shrink-0' : ''}`}>
-                    {/* Status Badges */}
-                    <div className="absolute top-3 left-3 z-10 flex flex-wrap gap-1">
-                      <Badge className={statusBadge.className}>
-                        {statusBadge.label}
-                      </Badge>
-                      {drop.badges?.map((badge, i) => (
-                        <Badge key={i} className="bg-primary/90 text-black text-xs">
-                          {badge}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    {/* Wishlist Button */}
-                    <button
-                      onClick={() => toggleWishlist(drop.id.toString())}
-                      className="absolute top-3 right-3 z-10 p-2 bg-black/50 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-black/70"
-                    >
-                      <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-red-500 text-red-500' : 'text-white'}`} />
-                    </button>
-
-                    {/* Product Image */}
-                    <div className={`bg-dark-surface rounded-lg overflow-hidden ${drop.featured ? 'aspect-square' : 'aspect-video'}`}>
-                      <img
-                        src={drop.image}
-                        alt={drop.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-
-                    {/* Quick Actions Overlay */}
-                    <div className="absolute inset-0 bg-black/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-lg flex items-center justify-center gap-3">
-                      <Button size="sm" variant="secondary" className="gap-2">
-                        <Eye className="w-4 h-4" />
-                        Vista rápida
-                      </Button>
-                    </div>
-                  </div>
-
-                  <CardContent className={`p-6 ${viewMode === 'list' ? 'flex-1' : ''}`}>
-                    <div className="flex justify-between items-start mb-3">
-                      <div>
-                        <h3 className="font-semibold text-lg mb-1 group-hover:text-primary transition-colors line-clamp-2">
-                          {drop.title}
-                        </h3>
-                        <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
-                          {drop.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-1 mb-4">
-                      {drop.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-xs bg-dark-surface px-2 py-1 rounded border border-dark-border"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Meta Info */}
-                    <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground mb-4">
-                      <div>Material: {drop.material}</div>
-                      <div>Tiempo: {drop.printTime}</div>
-                      <div>Dificultad: {drop.difficulty}</div>
-                      <div>Categoría: {drop.category}</div>
-                    </div>
-
-                    {/* Stats */}
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                      <div className="flex items-center gap-1">
-                        <Download className="w-4 h-4" />
-                        <span>{drop.downloads}</span>
-                      </div>
-                      {drop.rating > 0 && (
-                        <div className="flex items-center gap-1">
-                          <Star className="w-4 h-4 text-yellow-500" />
-                          <span>{drop.rating}</span>
-                          <span>({drop.reviews})</span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Stock Indicator */}
-                    {stockIndicator && (
-                      <div className={`text-sm font-medium mb-3 ${stockIndicator.className}`}>
-                        {stockIndicator.text}
-                      </div>
-                    )}
-
-                    {/* Price and Actions */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        {drop.price === 0 ? (
-                          <span className="text-2xl font-bold text-primary">GRATIS</span>
-                        ) : (
-                          <>
-                            <span className="text-2xl font-bold text-primary">
-                              {drop.currency}{drop.price}
-                            </span>
-                            {drop.originalPrice && (
-                              <span className="text-sm text-muted-foreground line-through">
-                                {drop.currency}{drop.originalPrice}
-                              </span>
-                            )}
-                          </>
-                        )}
-                      </div>
-
-                      <div className="flex gap-2">
-                        {drop.status === 'coming-soon' ? (
-                          <Button size="sm" variant="outline">
-                            Notificar
-                          </Button>
-                        ) : drop.status === 'sold-out' ? (
-                          <Button size="sm" variant="outline" disabled>
-                            Agotado
-                          </Button>
-                        ) : (
-                          <Button size="sm" className="btn-neon">
-                            {drop.price === 0 ? 'Descargar' : 'Comprar'}
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
+            {filteredDrops.map((drop) => (
+              <ProductCard
+                key={drop.id}
+                {...drop}
+                wishlist={wishlist}
+                onToggleWishlist={toggleWishlist}
+              />
+            ))}
           </div>
 
           {/* Load More */}
