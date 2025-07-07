@@ -61,7 +61,7 @@ const Drops = () => {
       printTime: '12h',
       difficulty: 'Intermedio',
       stock: 3,
-      status: 'limited',
+      status: 'limited' as const,
       badges: ['LIMITED', 'TRENDING'],
       featured: true,
       tags: ['Modular', 'LED Compatible', 'Customizable']
@@ -81,7 +81,7 @@ const Drops = () => {
       printTime: '8h',
       difficulty: 'Fácil',
       stock: 15,
-      status: 'live',
+      status: 'live' as const,
       badges: ['LIVE'],
       featured: false,
       tags: ['RGB', 'Gaming', 'Ergonomic']
@@ -101,7 +101,7 @@ const Drops = () => {
       printTime: '6h',
       difficulty: 'Fácil',
       stock: 0,
-      status: 'free',
+      status: 'free' as const,
       badges: ['GRATIS', 'POPULAR'],
       featured: false,
       tags: ['Modular', 'Minimalist', 'Office']
@@ -121,7 +121,7 @@ const Drops = () => {
       printTime: '24h',
       difficulty: 'Expert',
       stock: 8,
-      status: 'premium',
+      status: 'premium' as const,
       badges: ['MEMBERS ONLY', 'LIMITED'],
       featured: false,
       tags: ['Art', 'Parametric', 'Certificate']
@@ -141,7 +141,7 @@ const Drops = () => {
       printTime: '10h',
       difficulty: 'Intermedio',
       stock: 100,
-      status: 'coming-soon',
+      status: 'coming-soon' as const,
       badges: ['DROPPING SOON'],
       featured: false,
       tags: ['Tools', 'Professional', 'Complete Kit']
@@ -161,7 +161,7 @@ const Drops = () => {
       printTime: '4h',
       difficulty: 'Fácil',
       stock: 0,
-      status: 'sold-out',
+      status: 'sold-out' as const,
       badges: ['SOLD OUT'],
       featured: false,
       tags: ['Smart', 'Plants', 'Automatic']
