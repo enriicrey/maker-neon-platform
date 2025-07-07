@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Newsletter from "./pages/Newsletter";
 import NewsletterDetail from "./pages/NewsletterDetail";
 import Drops from "./pages/Drops";
+import ProductDetail from "./pages/ProductDetail";
 import Suscripcion from "./pages/Suscripcion";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/newsletter" element={<Newsletter />} />
           <Route path="/newsletter/:slug" element={<NewsletterDetail />} />
           <Route path="/drops" element={<Drops />} />
+          <Route path="/drops/:slug" element={<ProductDetail />} />
           <Route path="/suscripcion" element={<Suscripcion />} />
           <Route path="/dashboard" element={<Dashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
