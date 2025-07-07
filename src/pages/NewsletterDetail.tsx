@@ -1,13 +1,14 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronRight, Clock, Eye, Share2, MessageCircle, Star, BookmarkIcon, ArrowUp } from 'lucide-react';
+import { ChevronRight, Clock, Eye, Share2, MessageCircle, Star, ArrowUp } from 'lucide-react';
 import Layout from '../components/Layout';
 import { Newsletter } from '@/types/newsletter';
 import NewsletterCard from '../components/newsletter/NewsletterCard';
 import ReadingProgress from '../components/newsletter/ReadingProgress';
 import TableOfContents from '../components/newsletter/TableOfContents';
 import ShareActions from '../components/newsletter/ShareActions';
+import CommentsSection from '../components/newsletter/CommentsSection';
 
 const NewsletterDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -254,6 +255,9 @@ const NewsletterDetail = () => {
                 </div>
               </div>
             </div>
+
+            {/* Comments Section */}
+            <CommentsSection newsletterId={newsletter.id} />
           </article>
 
           {/* Sidebar - Desktop Only */}
