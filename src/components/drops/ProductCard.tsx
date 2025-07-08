@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Heart, Eye, Share, Download, Star, Clock, ShoppingCart, Bell, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Countdown } from '@/components/ui/countdown';
 
 interface ProductCardProps {
   id: number;
@@ -27,6 +28,7 @@ interface ProductCardProps {
   tags: string[];
   wishlist: string[];
   onToggleWishlist: (id: string) => void;
+  dropDate?: Date;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -50,7 +52,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   featured,
   tags,
   wishlist,
-  onToggleWishlist
+  onToggleWishlist,
+  dropDate
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -123,6 +126,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
               <Badge className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-bold animate-pulse">
                 ✨ DESTACADO
               </Badge>
+            </div>
+          )}
+
+          {/* Countdown Overlay for Coming Soon */}
+          {status === 'coming-soon' && dropDate && (
+            <div className="absolute bottom-4 left-4 right-4 z-20">
+              <div className="bg-black/80 backdrop-blur-sm rounded-lg p-2 text-center">
+                <Countdown
+                  targetDate={dropDate}
+                  variant="overlay"
+                  prefix="Disponible en:"
+                  showLabels={false}
+                  className="text-primary font-bold"
+                />
+              </div>
             </div>
           )}
 

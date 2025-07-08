@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Package, Download, Star, Clock, Heart, Eye, Filter, Grid3X3, List, Search, ChevronDown } from 'lucide-react';
 import Layout from '../components/Layout';
 import ProductCard from '../components/drops/ProductCard';
+import { Countdown } from '@/components/ui/countdown';
+import { useNotifications } from '@/contexts/NotificationContext';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -16,33 +18,18 @@ const Drops = () => {
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [compareList, setCompareList] = useState<string[]>([]);
   
-  // Countdown timer state for next drop
-  const [countdown, setCountdown] = useState({
-    days: 2,
-    hours: 14,
-    minutes: 23,
-    seconds: 15
-  });
+  const { addNotification } = useNotifications();
 
-  // Countdown effect
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCountdown(prev => {
-        if (prev.seconds > 0) {
-          return { ...prev, seconds: prev.seconds - 1 };
-        } else if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        } else if (prev.hours > 0) {
-          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        } else if (prev.days > 0) {
-          return { ...prev, days: prev.days - 1, hours: 23, minutes: 59, seconds: 59 };
-        }
-        return prev;
-      });
-    }, 1000);
+  // Mock next drop date (2 days from now)
+  const nextDropDate = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000 + 14 * 60 * 60 * 1000 + 23 * 60 * 1000);
 
-    return () => clearInterval(timer);
-  }, []);
+  const handleNotifyMe = () => {
+    addNotification({
+      title: '🔔 Notificación Activada',
+      message: 'Te avisaremos cuando el próximo drop esté disponible',
+      type: 'general'
+    });
+  };
 
   const drops = [
     {
@@ -144,7 +131,8 @@ const Drops = () => {
       status: 'coming-soon' as const,
       badges: ['DROPPING SOON'],
       featured: false,
-      tags: ['Tools', 'Professional', 'Complete Kit']
+      tags: ['Tools', 'Professional', 'Complete Kit'],
+      dropDate: nextDropDate
     },
     {
       id: 6,
@@ -200,25 +188,6 @@ const Drops = () => {
     );
   };
 
-  const getStatusBadge = (status: string) => {
-    const badges = {
-      'live': { label: 'LIVE', className: 'bg-green-500/90 text-white animate-pulse' },
-      'coming-soon': { label: 'DROPPING SOON', className: 'bg-yellow-500/90 text-black' },
-      'sold-out': { label: 'SOLD OUT', className: 'bg-gray-500/90 text-white' },
-      'limited': { label: 'LIMITED', className: 'bg-red-500/90 text-white' },
-      'premium': { label: 'MEMBERS ONLY', className: 'bg-blue-500/90 text-white' },
-      'free': { label: 'GRATIS', className: 'bg-primary/90 text-black' }
-    };
-    return badges[status as keyof typeof badges] || badges.live;
-  };
-
-  const getStockIndicator = (stock: number) => {
-    if (stock === 0) return { text: 'Agotado', className: 'text-red-400' };
-    if (stock <= 3) return { text: `¡Solo quedan ${stock}!`, className: 'text-red-400 animate-pulse' };
-    if (stock <= 10) return { text: 'Pocas unidades', className: 'text-yellow-400' };
-    return null;
-  };
-
   return (
     <Layout>
       {/* Hero Section */}
@@ -244,25 +213,20 @@ const Drops = () => {
 
           {/* Next Drop Countdown */}
           <div className="max-w-2xl mx-auto bg-gradient-to-r from-primary/10 to-neon-cyan/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <h3 className="text-2xl font-bold mb-4">PRÓXIMO DROP EN:</h3>
-            <div className="flex justify-center gap-4 mb-6">
-              {[
-                { value: countdown.days, label: 'DÍAS' },
-                { value: countdown.hours, label: 'HORAS' },
-                { value: countdown.minutes, label: 'MIN' },
-                { value: countdown.seconds, label: 'SEG' }
-              ].map((item, index) => (
-                <div key={index} className="text-center">
-                  <div className="bg-dark-surface border border-primary/30 rounded-lg px-4 py-3 mb-2">
-                    <span className="text-2xl font-bold text-primary">
-                      {item.value.toString().padStart(2, '0')}
-                    </span>
-                  </div>
-                  <span className="text-xs text-muted-foreground">{item.label}</span>
-                </div>
-              ))}
-            </div>
-            <Button className="btn-neon">
+            <Countdown
+              targetDate={nextDropDate}
+              variant="large"
+              prefix="PRÓXIMO DROP EN:"
+              onComplete={() => {
+                addNotification({
+                  title: '🔥 ¡Drop Disponible!',
+                  message: 'Kit Herramientas Tech v2.0 ya está disponible. Stock limitado.',
+                  type: 'drop-live',
+                  productId: '5'
+                });
+              }}
+            />
+            <Button onClick={handleNotifyMe} className="btn-neon">
               Avisar cuando esté disponible
             </Button>
           </div>

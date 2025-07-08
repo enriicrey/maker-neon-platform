@@ -1,7 +1,9 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { X } from 'lucide-react';
 import CartIcon from '@/components/cart/CartIcon';
+import { NotificationBell } from '@/components/notifications/NotificationBell';
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,6 +22,7 @@ const Navigation = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
+          <NotificationBell />
           <CartIcon />
           <Link to="/drops" className="text-gray-300 hover:text-white transition-colors">
             Drops
@@ -57,14 +60,17 @@ const Navigation = () => {
               <Link to="/" className="text-2xl font-bold text-white">
                 Soy Maker 3D
               </Link>
-              <CartIcon />
-              <button
-                onClick={toggleMobileMenu}
-                className="text-gray-300 hover:text-white focus:outline-none focus:text-white"
-                aria-label="Close menu"
-              >
-                <X className="h-6 w-6" />
-              </button>
+              <div className="flex items-center gap-2">
+                <NotificationBell />
+                <CartIcon />
+                <button
+                  onClick={toggleMobileMenu}
+                  className="text-gray-300 hover:text-white focus:outline-none focus:text-white"
+                  aria-label="Close menu"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
             </div>
 
             {/* Mobile Menu Content */}
