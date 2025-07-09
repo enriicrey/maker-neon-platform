@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
-import { Search, Filter, Grid, List, Plus, Star, Clock, BookOpen, Tag, Collection } from 'lucide-react';
+import { Search, Filter, Grid, List, Plus, Star, Clock, BookOpen, Tag, FolderOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -262,7 +262,7 @@ const DashboardBiblioteca = () => {
                     )}
 
                     <div className="flex items-center gap-1 flex-wrap">
-                      <Collection className="w-3 h-3 text-gray-400" />
+                      <FolderOpen className="w-3 h-3 text-gray-400" />
                       <span className="text-xs text-gray-400">{newsletter.collection}</span>
                     </div>
 
