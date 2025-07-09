@@ -5,6 +5,7 @@ import DashboardStats from '@/components/dashboard/DashboardStats';
 import RecentActivity from '@/components/dashboard/RecentActivity';
 import UpcomingDrops from '@/components/dashboard/UpcomingDrops';
 import PersonalizedRecommendations from '@/components/dashboard/PersonalizedRecommendations';
+import SubscriptionStatus from '@/components/dashboard/SubscriptionStatus';
 
 const Dashboard = () => {
   return (
@@ -20,8 +21,9 @@ const Dashboard = () => {
             <RecentActivity />
           </div>
 
-          {/* Right Column - Upcoming Drops */}
-          <div>
+          {/* Right Column - Subscription Status & Upcoming Drops */}
+          <div className="space-y-6">
+            <SubscriptionStatus />
             <UpcomingDrops />
           </div>
         </div>
