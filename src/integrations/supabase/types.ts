@@ -61,6 +61,65 @@ export type Database = {
           },
         ]
       }
+      collections: {
+        Row: {
+          color: string | null
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      price_history: {
+        Row: {
+          id: string
+          price: number
+          recorded_at: string
+          wishlist_item_id: string
+        }
+        Insert: {
+          id?: string
+          price: number
+          recorded_at?: string
+          wishlist_item_id: string
+        }
+        Update: {
+          id?: string
+          price?: number
+          recorded_at?: string
+          wishlist_item_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "price_history_wishlist_item_id_fkey"
+            columns: ["wishlist_item_id"]
+            isOneToOne: false
+            referencedRelation: "wishlist_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -84,6 +143,65 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      saved_newsletters: {
+        Row: {
+          collection_id: string | null
+          excerpt: string | null
+          id: string
+          image_url: string | null
+          is_favorite: boolean | null
+          last_read_at: string | null
+          newsletter_id: string
+          notes: string | null
+          read_status: string | null
+          reading_progress: number | null
+          saved_at: string
+          tags: string[] | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          collection_id?: string | null
+          excerpt?: string | null
+          id?: string
+          image_url?: string | null
+          is_favorite?: boolean | null
+          last_read_at?: string | null
+          newsletter_id: string
+          notes?: string | null
+          read_status?: string | null
+          reading_progress?: number | null
+          saved_at?: string
+          tags?: string[] | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          collection_id?: string | null
+          excerpt?: string | null
+          id?: string
+          image_url?: string | null
+          is_favorite?: boolean | null
+          last_read_at?: string | null
+          newsletter_id?: string
+          notes?: string | null
+          read_status?: string | null
+          reading_progress?: number | null
+          saved_at?: string
+          tags?: string[] | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "saved_newsletters_collection_id_fkey"
+            columns: ["collection_id"]
+            isOneToOne: false
+            referencedRelation: "collections"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       subscription_plans: {
         Row: {
@@ -170,6 +288,98 @@ export type Database = {
             columns: ["plan_id"]
             isOneToOne: false
             referencedRelation: "subscription_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      wishlist_categories: {
+        Row: {
+          color: string | null
+          created_at: string
+          id: string
+          name: string
+          user_id: string
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          user_id: string
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wishlist_items: {
+        Row: {
+          added_at: string
+          category_id: string | null
+          description: string | null
+          id: string
+          image_url: string | null
+          is_available: boolean | null
+          notes: string | null
+          price_alert_target: number | null
+          price_current: number | null
+          price_original: number | null
+          priority: string | null
+          product_id: string
+          product_url: string | null
+          stock_alert_enabled: boolean | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          added_at?: string
+          category_id?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          is_available?: boolean | null
+          notes?: string | null
+          price_alert_target?: number | null
+          price_current?: number | null
+          price_original?: number | null
+          priority?: string | null
+          product_id: string
+          product_url?: string | null
+          stock_alert_enabled?: boolean | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          added_at?: string
+          category_id?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          is_available?: boolean | null
+          notes?: string | null
+          price_alert_target?: number | null
+          price_current?: number | null
+          price_original?: number | null
+          priority?: string | null
+          product_id?: string
+          product_url?: string | null
+          stock_alert_enabled?: boolean | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wishlist_items_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "wishlist_categories"
             referencedColumns: ["id"]
           },
         ]

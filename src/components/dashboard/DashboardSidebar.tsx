@@ -11,7 +11,9 @@ import {
   User,
   Bell,
   Star,
-  TrendingUp
+  TrendingUp,
+  Library,
+  Bookmark
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -30,20 +32,20 @@ const sidebarItems: SidebarItem[] = [
   },
   {
     title: 'Mi Biblioteca',
-    href: '/dashboard/library',
-    icon: BookOpen,
-    badge: 3,
+    href: '/dashboard/biblioteca',
+    icon: Library,
+    badge: 12,
+  },
+  {
+    title: 'Mi Wishlist',
+    href: '/dashboard/wishlist',
+    icon: Heart,
+    badge: 7,
   },
   {
     title: 'Mis Pedidos',
     href: '/dashboard/orders',
     icon: ShoppingBag,
-  },
-  {
-    title: 'Wishlist',
-    href: '/dashboard/wishlist',
-    icon: Heart,
-    badge: 7,
   },
   {
     title: 'Mi Perfil',
