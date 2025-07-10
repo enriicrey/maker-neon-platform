@@ -14,6 +14,83 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_activity_logs: {
+        Row: {
+          action: string
+          admin_user_id: string
+          created_at: string
+          details: Json | null
+          id: string
+          ip_address: unknown | null
+          resource_id: string | null
+          resource_type: string
+          user_agent: string | null
+        }
+        Insert: {
+          action: string
+          admin_user_id: string
+          created_at?: string
+          details?: Json | null
+          id?: string
+          ip_address?: unknown | null
+          resource_id?: string | null
+          resource_type: string
+          user_agent?: string | null
+        }
+        Update: {
+          action?: string
+          admin_user_id?: string
+          created_at?: string
+          details?: Json | null
+          id?: string
+          ip_address?: unknown | null
+          resource_id?: string | null
+          resource_type?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "admin_activity_logs_admin_user_id_fkey"
+            columns: ["admin_user_id"]
+            isOneToOne: false
+            referencedRelation: "admin_users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      admin_users: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          is_active: boolean | null
+          permissions: Json | null
+          role: Database["public"]["Enums"]["admin_role"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          permissions?: Json | null
+          role?: Database["public"]["Enums"]["admin_role"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_active?: boolean | null
+          permissions?: Json | null
+          role?: Database["public"]["Enums"]["admin_role"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       billing_history: {
         Row: {
           amount: number
@@ -91,6 +168,209 @@ export type Database = {
         }
         Relationships: []
       }
+      newsletter_categories: {
+        Row: {
+          color: string | null
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
+      newsletters: {
+        Row: {
+          author_id: string
+          category_id: string | null
+          click_rate: number | null
+          content: string | null
+          created_at: string
+          excerpt: string | null
+          featured_image_url: string | null
+          id: string
+          open_rate: number | null
+          scheduled_at: string | null
+          sent_at: string | null
+          seo_description: string | null
+          seo_title: string | null
+          slug: string
+          status: string | null
+          tags: string[] | null
+          title: string
+          total_recipients: number | null
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          category_id?: string | null
+          click_rate?: number | null
+          content?: string | null
+          created_at?: string
+          excerpt?: string | null
+          featured_image_url?: string | null
+          id?: string
+          open_rate?: number | null
+          scheduled_at?: string | null
+          sent_at?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          slug: string
+          status?: string | null
+          tags?: string[] | null
+          title: string
+          total_recipients?: number | null
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          category_id?: string | null
+          click_rate?: number | null
+          content?: string | null
+          created_at?: string
+          excerpt?: string | null
+          featured_image_url?: string | null
+          id?: string
+          open_rate?: number | null
+          scheduled_at?: string | null
+          sent_at?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          slug?: string
+          status?: string | null
+          tags?: string[] | null
+          title?: string
+          total_recipients?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_newsletter_category"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "newsletter_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_items: {
+        Row: {
+          id: string
+          order_id: string
+          product_id: string
+          quantity: number
+          total_price: number
+          unit_price: number
+        }
+        Insert: {
+          id?: string
+          order_id: string
+          product_id: string
+          quantity: number
+          total_price: number
+          unit_price: number
+        }
+        Update: {
+          id?: string
+          order_id?: string
+          product_id?: string
+          quantity?: number
+          total_price?: number
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          billing_address: Json | null
+          created_at: string
+          currency: string | null
+          id: string
+          notes: string | null
+          order_number: string
+          payment_method: string | null
+          payment_status: string | null
+          shipping_address: Json | null
+          shipping_amount: number | null
+          status: string | null
+          stripe_payment_intent_id: string | null
+          subtotal: number
+          tax_amount: number | null
+          total_amount: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          billing_address?: Json | null
+          created_at?: string
+          currency?: string | null
+          id?: string
+          notes?: string | null
+          order_number: string
+          payment_method?: string | null
+          payment_status?: string | null
+          shipping_address?: Json | null
+          shipping_amount?: number | null
+          status?: string | null
+          stripe_payment_intent_id?: string | null
+          subtotal: number
+          tax_amount?: number | null
+          total_amount: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          billing_address?: Json | null
+          created_at?: string
+          currency?: string | null
+          id?: string
+          notes?: string | null
+          order_number?: string
+          payment_method?: string | null
+          payment_status?: string | null
+          shipping_address?: Json | null
+          shipping_amount?: number | null
+          status?: string | null
+          stripe_payment_intent_id?: string | null
+          subtotal?: number
+          tax_amount?: number | null
+          total_amount?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       price_history: {
         Row: {
           id: string
@@ -116,6 +396,121 @@ export type Database = {
             columns: ["wishlist_item_id"]
             isOneToOne: false
             referencedRelation: "wishlist_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      product_categories: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          parent_id: string | null
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          parent_id?: string | null
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          parent_id?: string | null
+          slug?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_categories_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "product_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          allow_backorder: boolean | null
+          category_id: string | null
+          created_at: string
+          description: string | null
+          drop_date: string | null
+          early_access_hours: number | null
+          featured_image_url: string | null
+          id: string
+          images: Json | null
+          is_drop: boolean | null
+          is_member_exclusive: boolean | null
+          low_stock_threshold: number | null
+          name: string
+          price: number
+          sku: string | null
+          slug: string
+          status: string | null
+          stock_quantity: number | null
+          tags: string[] | null
+          track_stock: boolean | null
+          updated_at: string
+        }
+        Insert: {
+          allow_backorder?: boolean | null
+          category_id?: string | null
+          created_at?: string
+          description?: string | null
+          drop_date?: string | null
+          early_access_hours?: number | null
+          featured_image_url?: string | null
+          id?: string
+          images?: Json | null
+          is_drop?: boolean | null
+          is_member_exclusive?: boolean | null
+          low_stock_threshold?: number | null
+          name: string
+          price: number
+          sku?: string | null
+          slug: string
+          status?: string | null
+          stock_quantity?: number | null
+          tags?: string[] | null
+          track_stock?: boolean | null
+          updated_at?: string
+        }
+        Update: {
+          allow_backorder?: boolean | null
+          category_id?: string | null
+          created_at?: string
+          description?: string | null
+          drop_date?: string | null
+          early_access_hours?: number | null
+          featured_image_url?: string | null
+          id?: string
+          images?: Json | null
+          is_drop?: boolean | null
+          is_member_exclusive?: boolean | null
+          low_stock_threshold?: number | null
+          name?: string
+          price?: number
+          sku?: string | null
+          slug?: string
+          status?: string | null
+          stock_quantity?: number | null
+          tags?: string[] | null
+          track_stock?: boolean | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_product_category"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "product_categories"
             referencedColumns: ["id"]
           },
         ]
@@ -263,6 +658,33 @@ export type Database = {
           price_monthly?: number
           price_yearly?: number
           slug?: string
+        }
+        Relationships: []
+      }
+      system_settings: {
+        Row: {
+          description: string | null
+          id: string
+          key: string
+          updated_at: string
+          updated_by: string | null
+          value: Json
+        }
+        Insert: {
+          description?: string | null
+          id?: string
+          key: string
+          updated_at?: string
+          updated_by?: string | null
+          value: Json
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          key?: string
+          updated_at?: string
+          updated_by?: string | null
+          value?: Json
         }
         Relationships: []
       }
@@ -527,6 +949,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_admin_role: {
+        Args: { user_uuid: string }
+        Returns: Database["public"]["Enums"]["admin_role"]
+      }
       get_user_subscription: {
         Args: { user_uuid: string }
         Returns: {
@@ -538,9 +964,13 @@ export type Database = {
           cancel_at_period_end: boolean
         }[]
       }
+      is_admin: {
+        Args: { user_uuid: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      admin_role: "super_admin" | "admin" | "editor" | "moderator"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -667,6 +1097,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      admin_role: ["super_admin", "admin", "editor", "moderator"],
+    },
   },
 } as const
