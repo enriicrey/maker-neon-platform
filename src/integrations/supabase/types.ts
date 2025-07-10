@@ -123,24 +123,51 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          bio: string | null
           created_at: string
+          experience_level: string | null
           full_name: string | null
           id: string
+          interests: string[] | null
+          location: string | null
+          occupation: string | null
+          phone: string | null
+          timezone: string | null
           updated_at: string
+          username: string | null
+          website_url: string | null
         }
         Insert: {
           avatar_url?: string | null
+          bio?: string | null
           created_at?: string
+          experience_level?: string | null
           full_name?: string | null
           id: string
+          interests?: string[] | null
+          location?: string | null
+          occupation?: string | null
+          phone?: string | null
+          timezone?: string | null
           updated_at?: string
+          username?: string | null
+          website_url?: string | null
         }
         Update: {
           avatar_url?: string | null
+          bio?: string | null
           created_at?: string
+          experience_level?: string | null
           full_name?: string | null
           id?: string
+          interests?: string[] | null
+          location?: string | null
+          occupation?: string | null
+          phone?: string | null
+          timezone?: string | null
           updated_at?: string
+          username?: string | null
+          website_url?: string | null
         }
         Relationships: []
       }
@@ -236,6 +263,117 @@ export type Database = {
           price_monthly?: number
           price_yearly?: number
           slug?: string
+        }
+        Relationships: []
+      }
+      user_preferences: {
+        Row: {
+          activity_visibility: boolean | null
+          analytics_opt_out: boolean | null
+          content_categories: string[] | null
+          content_length_preference: string | null
+          created_at: string
+          currency: string | null
+          date_format: string | null
+          difficulty_level: string | null
+          email_notifications: Json | null
+          id: string
+          language: string | null
+          marketing_communications: boolean | null
+          personalization_enabled: boolean | null
+          profile_visibility: string | null
+          push_notifications: Json | null
+          quiet_hours: Json | null
+          reading_activity_visible: boolean | null
+          theme: string | null
+          timezone_display: string | null
+          update_frequency: string | null
+          updated_at: string
+          user_id: string
+          wishlist_sharing: boolean | null
+        }
+        Insert: {
+          activity_visibility?: boolean | null
+          analytics_opt_out?: boolean | null
+          content_categories?: string[] | null
+          content_length_preference?: string | null
+          created_at?: string
+          currency?: string | null
+          date_format?: string | null
+          difficulty_level?: string | null
+          email_notifications?: Json | null
+          id?: string
+          language?: string | null
+          marketing_communications?: boolean | null
+          personalization_enabled?: boolean | null
+          profile_visibility?: string | null
+          push_notifications?: Json | null
+          quiet_hours?: Json | null
+          reading_activity_visible?: boolean | null
+          theme?: string | null
+          timezone_display?: string | null
+          update_frequency?: string | null
+          updated_at?: string
+          user_id: string
+          wishlist_sharing?: boolean | null
+        }
+        Update: {
+          activity_visibility?: boolean | null
+          analytics_opt_out?: boolean | null
+          content_categories?: string[] | null
+          content_length_preference?: string | null
+          created_at?: string
+          currency?: string | null
+          date_format?: string | null
+          difficulty_level?: string | null
+          email_notifications?: Json | null
+          id?: string
+          language?: string | null
+          marketing_communications?: boolean | null
+          personalization_enabled?: boolean | null
+          profile_visibility?: string | null
+          push_notifications?: Json | null
+          quiet_hours?: Json | null
+          reading_activity_visible?: boolean | null
+          theme?: string | null
+          timezone_display?: string | null
+          update_frequency?: string | null
+          updated_at?: string
+          user_id?: string
+          wishlist_sharing?: boolean | null
+        }
+        Relationships: []
+      }
+      user_sessions: {
+        Row: {
+          created_at: string
+          device_info: Json | null
+          id: string
+          ip_address: string | null
+          last_activity: string | null
+          location: string | null
+          session_token: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          device_info?: Json | null
+          id?: string
+          ip_address?: string | null
+          last_activity?: string | null
+          location?: string | null
+          session_token: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          device_info?: Json | null
+          id?: string
+          ip_address?: string | null
+          last_activity?: string | null
+          location?: string | null
+          session_token?: string
+          user_id?: string
         }
         Relationships: []
       }

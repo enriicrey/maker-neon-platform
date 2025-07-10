@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
@@ -24,43 +23,26 @@ interface SidebarItem {
   badge?: number;
 }
 
-const sidebarItems: SidebarItem[] = [
+const menuItems = [
   {
     title: 'Dashboard',
-    href: '/dashboard',
+    url: '/dashboard',
     icon: LayoutDashboard,
   },
   {
-    title: 'Mi Biblioteca',
-    href: '/dashboard/biblioteca',
-    icon: Library,
-    badge: 12,
+    title: 'Biblioteca',
+    url: '/dashboard/biblioteca',
+    icon: BookOpen,
   },
   {
-    title: 'Mi Wishlist',
-    href: '/dashboard/wishlist',
+    title: 'Wishlist',
+    url: '/dashboard/wishlist',
     icon: Heart,
-    badge: 7,
-  },
-  {
-    title: 'Mis Pedidos',
-    href: '/dashboard/orders',
-    icon: ShoppingBag,
-  },
-  {
-    title: 'Mi Perfil',
-    href: '/dashboard/profile',
-    icon: User,
   },
   {
     title: 'Configuración',
-    href: '/dashboard/settings',
+    url: '/dashboard/configuracion',
     icon: Settings,
-  },
-  {
-    title: 'Soporte',
-    href: '/dashboard/support',
-    icon: HelpCircle,
   },
 ];
 
@@ -77,14 +59,14 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isCollapsed }) => {
       isCollapsed ? "w-16" : "w-64"
     )}>
       <div className="p-4 space-y-2">
-        {sidebarItems.map((item) => {
-          const isActive = location.pathname === item.href;
+        {menuItems.map((item) => {
+          const isActive = location.pathname === item.url;
           const Icon = item.icon;
           
           return (
             <Link
-              key={item.href}
-              to={item.href}
+              key={item.url}
+              to={item.url}
               className={cn(
                 "flex items-center gap-3 px-3 py-2 rounded-lg transition-colors group relative",
                 isActive 
