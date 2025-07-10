@@ -91,6 +91,93 @@ export type Database = {
         }
         Relationships: []
       }
+      analytics_events: {
+        Row: {
+          created_at: string
+          event_name: string
+          event_type: string
+          id: string
+          ip_address: unknown | null
+          page_url: string | null
+          properties: Json | null
+          referrer: string | null
+          session_id: string | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_name: string
+          event_type: string
+          id?: string
+          ip_address?: unknown | null
+          page_url?: string | null
+          properties?: Json | null
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_name?: string
+          event_type?: string
+          id?: string
+          ip_address?: unknown | null
+          page_url?: string | null
+          properties?: Json | null
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      analytics_reports: {
+        Row: {
+          configuration: Json
+          created_at: string
+          created_by: string
+          description: string | null
+          id: string
+          is_active: boolean | null
+          last_run_at: string | null
+          name: string
+          recipients: string[] | null
+          report_type: string
+          schedule_config: Json | null
+          updated_at: string
+        }
+        Insert: {
+          configuration?: Json
+          created_at?: string
+          created_by: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          last_run_at?: string | null
+          name: string
+          recipients?: string[] | null
+          report_type: string
+          schedule_config?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          configuration?: Json
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          last_run_at?: string | null
+          name?: string
+          recipients?: string[] | null
+          report_type?: string
+          schedule_config?: Json | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       billing_history: {
         Row: {
           amount: number
@@ -167,6 +254,74 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      daily_metrics: {
+        Row: {
+          created_at: string
+          id: string
+          metric_date: string
+          metric_meta: Json | null
+          metric_type: string
+          metric_value: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          metric_date: string
+          metric_meta?: Json | null
+          metric_type: string
+          metric_value: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          metric_date?: string
+          metric_meta?: Json | null
+          metric_type?: string
+          metric_value?: number
+        }
+        Relationships: []
+      }
+      newsletter_analytics: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          ip_address: unknown | null
+          link_url: string | null
+          newsletter_id: string
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          id?: string
+          ip_address?: unknown | null
+          link_url?: string | null
+          newsletter_id: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          ip_address?: unknown | null
+          link_url?: string | null
+          newsletter_id?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "newsletter_analytics_newsletter_id_fkey"
+            columns: ["newsletter_id"]
+            isOneToOne: false
+            referencedRelation: "newsletters"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       newsletter_categories: {
         Row: {
@@ -400,6 +555,50 @@ export type Database = {
           },
         ]
       }
+      product_analytics: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          ip_address: unknown | null
+          product_id: string
+          properties: Json | null
+          session_id: string | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          id?: string
+          ip_address?: unknown | null
+          product_id: string
+          properties?: Json | null
+          session_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          ip_address?: unknown | null
+          product_id?: string
+          properties?: Json | null
+          session_id?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_analytics_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       product_categories: {
         Row: {
           created_at: string
@@ -625,6 +824,64 @@ export type Database = {
           },
         ]
       }
+      subscription_analytics: {
+        Row: {
+          created_at: string
+          event_type: string
+          from_plan_id: string | null
+          id: string
+          properties: Json | null
+          revenue_change: number | null
+          subscription_id: string | null
+          to_plan_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          from_plan_id?: string | null
+          id?: string
+          properties?: Json | null
+          revenue_change?: number | null
+          subscription_id?: string | null
+          to_plan_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          from_plan_id?: string | null
+          id?: string
+          properties?: Json | null
+          revenue_change?: number | null
+          subscription_id?: string | null
+          to_plan_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscription_analytics_from_plan_id_fkey"
+            columns: ["from_plan_id"]
+            isOneToOne: false
+            referencedRelation: "subscription_plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscription_analytics_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "user_subscriptions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscription_analytics_to_plan_id_fkey"
+            columns: ["to_plan_id"]
+            isOneToOne: false
+            referencedRelation: "subscription_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       subscription_plans: {
         Row: {
           created_at: string
@@ -685,6 +942,36 @@ export type Database = {
           updated_at?: string
           updated_by?: string | null
           value?: Json
+        }
+        Relationships: []
+      }
+      user_cohorts: {
+        Row: {
+          cohort_month: string
+          created_at: string
+          first_purchase_date: string | null
+          id: string
+          signup_date: string
+          subscription_start_date: string | null
+          user_id: string
+        }
+        Insert: {
+          cohort_month: string
+          created_at?: string
+          first_purchase_date?: string | null
+          id?: string
+          signup_date: string
+          subscription_start_date?: string | null
+          user_id: string
+        }
+        Update: {
+          cohort_month?: string
+          created_at?: string
+          first_purchase_date?: string | null
+          id?: string
+          signup_date?: string
+          subscription_start_date?: string | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -952,6 +1239,41 @@ export type Database = {
       get_admin_role: {
         Args: { user_uuid: string }
         Returns: Database["public"]["Enums"]["admin_role"]
+      }
+      get_newsletter_metrics: {
+        Args: {
+          newsletter_id_param?: string
+          start_date?: string
+          end_date?: string
+        }
+        Returns: {
+          total_sent: number
+          total_delivered: number
+          total_opened: number
+          total_clicked: number
+          total_unsubscribed: number
+          open_rate: number
+          click_rate: number
+          unsubscribe_rate: number
+        }[]
+      }
+      get_revenue_metrics: {
+        Args: { start_date?: string; end_date?: string }
+        Returns: {
+          total_revenue: number
+          total_orders: number
+          avg_order_value: number
+          conversion_rate: number
+        }[]
+      }
+      get_user_metrics: {
+        Args: { start_date?: string; end_date?: string }
+        Returns: {
+          new_users: number
+          active_users: number
+          retention_rate: number
+          churn_rate: number
+        }[]
       }
       get_user_subscription: {
         Args: { user_uuid: string }
