@@ -72,15 +72,15 @@ const NotificationSettings = () => {
           ...prev,
           email_notifications: { 
             ...prev.email_notifications, 
-            ...(data.email_notifications || {})
+            ...(typeof data.email_notifications === 'object' && data.email_notifications !== null ? data.email_notifications : {})
           },
           push_notifications: { 
             ...prev.push_notifications, 
-            ...(data.push_notifications || {})
+            ...(typeof data.push_notifications === 'object' && data.push_notifications !== null ? data.push_notifications : {})
           },
           quiet_hours: { 
             ...prev.quiet_hours, 
-            ...(data.quiet_hours || {})
+            ...(typeof data.quiet_hours === 'object' && data.quiet_hours !== null ? data.quiet_hours : {})
           }
         }));
       }
