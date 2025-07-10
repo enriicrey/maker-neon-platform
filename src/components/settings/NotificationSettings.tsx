@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
@@ -71,9 +70,18 @@ const NotificationSettings = () => {
       if (data) {
         setPreferences(prev => ({
           ...prev,
-          email_notifications: { ...prev.email_notifications, ...data.email_notifications },
-          push_notifications: { ...prev.push_notifications, ...data.push_notifications },
-          quiet_hours: { ...prev.quiet_hours, ...data.quiet_hours }
+          email_notifications: { 
+            ...prev.email_notifications, 
+            ...(data.email_notifications || {})
+          },
+          push_notifications: { 
+            ...prev.push_notifications, 
+            ...(data.push_notifications || {})
+          },
+          quiet_hours: { 
+            ...prev.quiet_hours, 
+            ...(data.quiet_hours || {})
+          }
         }));
       }
     } catch (error) {

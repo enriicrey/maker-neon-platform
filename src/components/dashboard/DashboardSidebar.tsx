@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
@@ -20,7 +21,6 @@ interface SidebarItem {
   title: string;
   href: string;
   icon: React.ComponentType<{ className?: string }>;
-  badge?: number;
 }
 
 const menuItems = [
@@ -76,25 +76,13 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isCollapsed }) => {
             >
               <Icon className="w-5 h-5 flex-shrink-0" />
               {!isCollapsed && (
-                <>
-                  <span className="font-medium">{item.title}</span>
-                  {item.badge && (
-                    <span className="ml-auto bg-primary text-primary-foreground text-xs rounded-full px-2 py-1 min-w-[20px] text-center">
-                      {item.badge}
-                    </span>
-                  )}
-                </>
+                <span className="font-medium">{item.title}</span>
               )}
               
               {/* Tooltip for collapsed state */}
               {isCollapsed && (
                 <div className="absolute left-full ml-2 px-2 py-1 bg-gray-800 text-white text-sm rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50">
                   {item.title}
-                  {item.badge && (
-                    <span className="ml-2 bg-primary text-primary-foreground text-xs rounded-full px-1.5 py-0.5">
-                      {item.badge}
-                    </span>
-                  )}
                 </div>
               )}
             </Link>

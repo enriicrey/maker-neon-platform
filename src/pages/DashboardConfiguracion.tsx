@@ -13,12 +13,12 @@ import PreferencesSettings from '@/components/settings/PreferencesSettings';
 import DataSettings from '@/components/settings/DataSettings';
 import { useAuth } from '@/contexts/AuthContext';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { useMediaQuery } from '@/hooks/use-mobile';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const DashboardConfiguracion = () => {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('profile');
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useIsMobile();
 
   const tabs = [
     {
