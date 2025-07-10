@@ -315,9 +315,9 @@ const PreferencesSettings = () => {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-dark-surface border-dark-border">
-                  <SelectItem value="short" className="text-white">Corto (< 5 min)</SelectItem>
+                  <SelectItem value="short" className="text-white">Corto (&lt; 5 min)</SelectItem>
                   <SelectItem value="medium" className="text-white">Medio (5-15 min)</SelectItem>
-                  <SelectItem value="long" className="text-white">Largo (> 15 min)</SelectItem>
+                  <SelectItem value="long" className="text-white">Largo (&gt; 15 min)</SelectItem>
                   <SelectItem value="mixed" className="text-white">Variado</SelectItem>
                 </SelectContent>
               </Select>
