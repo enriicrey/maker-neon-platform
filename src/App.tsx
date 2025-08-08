@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from "sonner";
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
@@ -19,10 +20,22 @@ import Admin from './pages/Admin';
 import AdminNewsletters from './pages/AdminNewsletters';
 import AdminAnalyticsPage from './pages/AdminAnalytics';
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      gcTime: 10 * 60 * 1000, // 10 minutes (replaces cacheTime in v5)
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 function App() {
   return (
-    <Router>
-      <AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <AuthProvider>
         <CartProvider>
           <NotificationProvider>
             <SubscriptionProvider>
@@ -53,6 +66,7 @@ function App() {
         </CartProvider>
       </AuthProvider>
     </Router>
+    </QueryClientProvider>
   );
 }
 
