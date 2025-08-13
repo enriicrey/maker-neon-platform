@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from "sonner";
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
@@ -9,8 +10,9 @@ import { SubscriptionProvider } from './contexts/SubscriptionContext';
 import ScrollToTop from './components/ScrollToTop';
 import LoadingSpinner from './components/ui/loading-spinner';
 import ErrorBoundary from './components/ErrorBoundary';
+import GoogleAnalytics from './components/analytics/GoogleAnalytics';
 import { usePerformanceMonitor } from './hooks/usePerformanceMonitor';
-import { setCSPHeaders } from './utils/security';
+import { setCSPHeaders, SECURITY_HEADERS } from './utils/security';
 import InstallPrompt from './components/pwa/InstallPrompt';
 import UpdateNotification from './components/pwa/UpdateNotification';
 import OfflineIndicator from './components/pwa/OfflineIndicator';
@@ -56,25 +58,44 @@ function App() {
     // Set security headers
     setCSPHeaders();
     
+    // Apply security headers to document
+    Object.entries(SECURITY_HEADERS).forEach(([key, value]: [string, string]) => {
+      const meta = document.createElement('meta');
+      meta.httpEquiv = key;
+      meta.content = value;
+      document.head.appendChild(meta);
+    });
+    
     // Preload critical resources
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.href = '/fonts/inter.woff2';
-    link.as = 'font';
-    link.type = 'font/woff2';
-    link.crossOrigin = 'anonymous';
-    document.head.appendChild(link);
+    const preloadResources = [
+      { href: '/fonts/inter.woff2', as: 'font', type: 'font/woff2' },
+      { href: '/manifest.json', as: 'manifest' },
+      { href: '/logo-192.png', as: 'image' }
+    ];
+    
+    preloadResources.forEach(resource => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.href = resource.href;
+      link.as = resource.as;
+      if (resource.type) link.type = resource.type;
+      if (resource.as === 'font') link.crossOrigin = 'anonymous';
+      document.head.appendChild(link);
+    });
   }, []);
+  
   return (
     <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <Router>
+      <HelmetProvider>
+        <QueryClientProvider client={queryClient}>
+          <Router>
           <ErrorBoundary>
             <AuthProvider>
               <CartProvider>
                 <NotificationProvider>
                   <SubscriptionProvider>
                     <PerformanceMonitor />
+                    <GoogleAnalytics measurementId="GA_MEASUREMENT_ID" />
                     <Suspense fallback={<LoadingSpinner />}>
                       <Routes>
                         {/* Public Routes */}
@@ -107,9 +128,10 @@ function App() {
                 </NotificationProvider>
               </CartProvider>
             </AuthProvider>
-          </ErrorBoundary>
-        </Router>
-      </QueryClientProvider>
+            </ErrorBoundary>
+          </Router>
+        </QueryClientProvider>
+      </HelmetProvider>
     </ErrorBoundary>
   );
 }
