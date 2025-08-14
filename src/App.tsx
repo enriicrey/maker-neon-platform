@@ -78,7 +78,6 @@ function App() {
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           <Router>
-          <ErrorBoundary>
             <AuthProvider>
               <CartProvider>
                 <NotificationProvider>
@@ -117,7 +116,6 @@ function App() {
                 </NotificationProvider>
               </CartProvider>
             </AuthProvider>
-            </ErrorBoundary>
           </Router>
         </QueryClientProvider>
       </HelmetProvider>
