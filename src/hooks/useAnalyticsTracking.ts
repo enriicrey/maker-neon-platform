@@ -55,8 +55,8 @@ export const useAnalyticsTracking = () => {
   // Track custom events
   const trackEvent = useCallback((event: AnalyticsEvent) => {
     // Google Analytics 4
-    if (typeof gtag !== 'undefined') {
-      window.gtag('event', event.action, {
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', event.action, {
         event_category: event.category,
         event_label: event.label,
         value: event.value,
@@ -65,8 +65,8 @@ export const useAnalyticsTracking = () => {
     }
 
     // Facebook Pixel
-    if (typeof fbq !== 'undefined') {
-      fbq('track', 'CustomEvent', {
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'CustomEvent', {
         event_name: event.action,
         event_category: event.category,
         event_label: event.label,
@@ -81,8 +81,8 @@ export const useAnalyticsTracking = () => {
   // Track conversions
   const trackConversion = useCallback((conversion: ConversionEvent) => {
     // Google Analytics 4 Enhanced E-commerce
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'purchase', {
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'purchase', {
         transaction_id: conversion.transactionId,
         value: conversion.value,
         currency: conversion.currency,
@@ -97,8 +97,8 @@ export const useAnalyticsTracking = () => {
     }
 
     // Facebook Pixel Purchase Event
-    if (typeof fbq !== 'undefined') {
-      fbq('track', 'Purchase', {
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'Purchase', {
         value: conversion.value,
         currency: conversion.currency,
         content_ids: conversion.items.map(item => item.itemId),
@@ -183,8 +183,8 @@ const trackWebVitals = () => {
     const { getCLS, getFID, getFCP, getLCP, getTTFB } = (window as any)['web-vitals'];
     
     const sendToAnalytics = ({ name, value, id }: WebVital) => {
-      if (typeof gtag !== 'undefined') {
-        gtag('event', name, {
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', name, {
           event_category: 'Web Vitals',
           event_label: id,
           value: Math.round(name === 'CLS' ? value * 1000 : value),

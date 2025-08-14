@@ -12,7 +12,7 @@ import LoadingSpinner from './components/ui/loading-spinner';
 import ErrorBoundary from './components/ErrorBoundary';
 import GoogleAnalytics from './components/analytics/GoogleAnalytics';
 import { usePerformanceMonitor } from './hooks/usePerformanceMonitor';
-import { setCSPHeaders, SECURITY_HEADERS } from './utils/security';
+import { setCSPHeaders } from './utils/security';
 import InstallPrompt from './components/pwa/InstallPrompt';
 import UpdateNotification from './components/pwa/UpdateNotification';
 import OfflineIndicator from './components/pwa/OfflineIndicator';
@@ -57,14 +57,6 @@ function App() {
   useEffect(() => {
     // Set security headers
     setCSPHeaders();
-    
-    // Apply security headers to document
-    Object.entries(SECURITY_HEADERS).forEach(([key, value]: [string, string]) => {
-      const meta = document.createElement('meta');
-      meta.httpEquiv = key;
-      meta.content = value;
-      document.head.appendChild(meta);
-    });
     
     // Preload critical resources
     const preloadResources = [
