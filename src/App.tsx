@@ -12,7 +12,7 @@ import LoadingSpinner from './components/ui/loading-spinner';
 import ErrorBoundary from './components/ErrorBoundary';
 import GoogleAnalytics from './components/analytics/GoogleAnalytics';
 import { usePerformanceMonitor } from './hooks/usePerformanceMonitor';
-import { setCSPHeaders } from './utils/security';
+
 import InstallPrompt from './components/pwa/InstallPrompt';
 import UpdateNotification from './components/pwa/UpdateNotification';
 import OfflineIndicator from './components/pwa/OfflineIndicator';
@@ -55,9 +55,6 @@ const PerformanceMonitor: React.FC = () => {
 
 function App() {
   useEffect(() => {
-    // Set security headers
-    setCSPHeaders();
-    
     // Preload critical resources
     const preloadResources = [
       { href: '/fonts/inter.woff2', as: 'font', type: 'font/woff2' },
