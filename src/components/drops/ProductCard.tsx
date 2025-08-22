@@ -1,5 +1,5 @@
 
-import React, { useState, memo, useCallback, useMemo } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Heart, Eye, Share, Download, Star, Clock, ShoppingCart, Bell, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -31,7 +31,7 @@ interface ProductCardProps {
   dropDate?: Date;
 }
 
-const ProductCard: React.FC<ProductCardProps> = memo(({
+const ProductCard: React.FC<ProductCardProps> = ({
   id,
   title,
   description,
@@ -57,16 +57,9 @@ const ProductCard: React.FC<ProductCardProps> = memo(({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  
-  // Memoize expensive calculations
-  const isWishlisted = useMemo(() => wishlist.includes(id.toString()), [wishlist, id]);
-  const slug = useMemo(() => 
-    title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''), 
-    [title]
-  );
+  const isWishlisted = wishlist.includes(id.toString());
 
-  // Memoize expensive calculations
-  const statusBadge = useMemo(() => {
+  const getStatusBadge = () => {
     const statusConfig = {
       'live': { label: 'LIVE', className: 'bg-green-500/90 text-white animate-pulse' },
       'coming-soon': { label: 'DROPPING SOON', className: 'bg-yellow-500/90 text-black font-bold' },
@@ -76,16 +69,16 @@ const ProductCard: React.FC<ProductCardProps> = memo(({
       'free': { label: 'GRATIS', className: 'bg-primary/90 text-black font-bold' }
     };
     return statusConfig[status] || statusConfig.live;
-  }, [status]);
+  };
 
-  const stockIndicator = useMemo(() => {
+  const getStockIndicator = () => {
     if (stock === 0) return { text: 'Agotado', className: 'text-red-400', urgent: false };
     if (stock <= 3) return { text: `¡Solo quedan ${stock}!`, className: 'text-red-400 animate-pulse', urgent: true };
     if (stock <= 10) return { text: 'Pocas unidades', className: 'text-yellow-400', urgent: false };
     return null;
-  }, [stock]);
+  };
 
-  const difficultyBars = useMemo(() => {
+  const getDifficultyBars = () => {
     const levels = { 'Fácil': 1, 'Intermedio': 3, 'Expert': 5 };
     const level = levels[difficulty as keyof typeof levels] || 1;
     return Array.from({ length: 5 }, (_, i) => (
@@ -96,18 +89,13 @@ const ProductCard: React.FC<ProductCardProps> = memo(({
         }`}
       />
     ));
-  }, [difficulty]);
+  };
 
-  // Memoize event handlers
-  const handleWishlistToggle = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    onToggleWishlist(id.toString());
-  }, [onToggleWishlist, id]);
+  const statusBadge = getStatusBadge();
+  const stockIndicator = getStockIndicator();
 
-  const handleMouseEnter = useCallback(() => setIsHovered(true), []);
-  const handleMouseLeave = useCallback(() => setIsHovered(false), []);
-  const handleImageLoad = useCallback(() => setImageLoaded(true), []);
+  // Create slug from title for routing
+  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
   return (
     <Link to={`/drops/${slug}`}>
@@ -115,8 +103,8 @@ const ProductCard: React.FC<ProductCardProps> = memo(({
         className={`group relative bg-gradient-to-br from-gray-900/80 to-gray-800/50 backdrop-blur border border-gray-700/50 rounded-2xl overflow-hidden transition-all duration-500 ease-out hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 hover:scale-[1.02] cursor-pointer ${
           featured ? 'md:col-span-2 border-2 border-yellow-500/50 bg-gradient-to-br from-yellow-500/5 to-primary/5' : ''
         }`}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         {/* Image Container */}
         <div className={`relative ${featured ? 'aspect-[4/3]' : 'aspect-square'} overflow-hidden`}>
@@ -158,7 +146,11 @@ const ProductCard: React.FC<ProductCardProps> = memo(({
 
           {/* Wishlist Button */}
           <button
-            onClick={handleWishlistToggle}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onToggleWishlist(id.toString());
+            }}
             className="absolute top-4 right-4 z-20 p-3 bg-black/50 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-black/70 hover:scale-110"
           >
             <Heart 
@@ -181,8 +173,7 @@ const ProductCard: React.FC<ProductCardProps> = memo(({
               className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${
                 imageLoaded ? 'opacity-100' : 'opacity-0'
               }`}
-              onLoad={handleImageLoad}
-              loading="lazy"
+              onLoad={() => setImageLoaded(true)}
             />
             
             {/* Gradient Overlay */}
@@ -264,7 +255,7 @@ const ProductCard: React.FC<ProductCardProps> = memo(({
             <div className="flex items-center gap-1">
               <span>Dificultad:</span>
               <div className="flex gap-0.5">
-                {difficultyBars}
+                {getDifficultyBars()}
               </div>
             </div>
           </div>
@@ -324,6 +315,6 @@ const ProductCard: React.FC<ProductCardProps> = memo(({
       </div>
     </Link>
   );
-});
+};
 
 export default ProductCard;

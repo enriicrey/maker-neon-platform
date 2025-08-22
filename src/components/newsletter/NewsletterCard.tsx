@@ -1,31 +1,30 @@
 import { Clock, Eye, Share2, MessageCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Newsletter } from '@/types/newsletter';
-import { memo, useCallback, useMemo } from 'react';
 
 interface NewsletterCardProps {
   newsletter: Newsletter;
   onClick?: (newsletter: Newsletter) => void;
 }
 
-const NewsletterCard = memo(({ newsletter, onClick }: NewsletterCardProps) => {
+const NewsletterCard = ({ newsletter, onClick }: NewsletterCardProps) => {
   const navigate = useNavigate();
   
-  const categoryLabels = useMemo(() => ({
+  const categoryLabels = {
     'drops-exclusivos': '🔥 Drops Exclusivos',
     'tutoriales-tecnicos': '🛠️ Tutoriales Técnicos',
     'estrategias-negocio': '💰 Estrategias de Negocio',
     'tendencias-sector': '🌟 Tendencias del Sector',
     'casos-estudio': '📊 Casos de Estudio',
-  }), []);
+  };
 
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     if (onClick) {
       onClick(newsletter);
     } else {
       navigate(`/newsletter/${newsletter.id}`);
     }
-  }, [onClick, newsletter, navigate]);
+  };
 
   return (
     <article
@@ -40,7 +39,6 @@ const NewsletterCard = memo(({ newsletter, onClick }: NewsletterCardProps) => {
             src={newsletter.image} 
             alt={newsletter.title}
             className="w-full h-full object-cover"
-            loading="lazy"
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-primary/20 to-neon-cyan/20 flex items-center justify-center">
@@ -99,6 +97,6 @@ const NewsletterCard = memo(({ newsletter, onClick }: NewsletterCardProps) => {
       </div>
     </article>
   );
-});
+};
 
 export default NewsletterCard;
