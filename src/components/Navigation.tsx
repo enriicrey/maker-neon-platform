@@ -16,14 +16,14 @@ import {
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { user, signOut, loading } = useAuth();
+  const { user, logout, isLoading } = useAuth();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const handleSignOut = async () => {
-    await signOut();
+  const handleSignOut = () => {
+    logout();
   };
 
   return (
@@ -49,7 +49,7 @@ const Navigation = () => {
           </Link>
           
           {/* Authentication section */}
-          {loading ? (
+          {isLoading ? (
             <div className="w-8 h-8 rounded-full bg-gray-700 animate-pulse"></div>
           ) : user ? (
             <DropdownMenu>
@@ -141,7 +141,7 @@ const Navigation = () => {
 
               {/* Mobile Authentication section */}
               <div className="border-t border-gray-700 pt-4 mt-4">
-                {loading ? (
+                {isLoading ? (
                   <div className="w-full h-8 rounded bg-gray-700 animate-pulse"></div>
                 ) : user ? (
                   <div className="space-y-2">
