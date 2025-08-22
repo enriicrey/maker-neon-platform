@@ -17,7 +17,6 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Suscripcion from "./pages/Suscripcion";
 import Dashboard from "./pages/Dashboard";
-import DashboardLibrary from "./pages/DashboardLibrary";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -45,7 +44,6 @@ const App = () => (
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/suscripcion" element={<Suscripcion />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/dashboard/library" element={<DashboardLibrary />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
