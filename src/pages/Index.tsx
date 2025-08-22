@@ -1,73 +1,12 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { ArrowRight, Zap, Users, Rocket } from 'lucide-react';
 import Layout from '../components/Layout';
 import HeroSection from '../components/HeroSection';
 import BenefitsAndSocialProof from '../components/BenefitsAndSocialProof';
 import FinalCTA from '../components/FinalCTA';
-import ScrollToTop from '../components/ScrollToTop';
-import SEOHead from '../components/SEOHead';
-import { useSEOAdvanced } from '../hooks/useSEOAdvanced';
-import { useAnalyticsTracking } from '../hooks/useAnalyticsTracking';
-import { generateWebsiteStructuredData, generateFAQStructuredData } from '../utils/seoAdvanced';
 
 const Index = () => {
-  // SEO and Analytics setup
-  const { trackEvent, trackEngagement } = useAnalyticsTracking();
-  
-  // SEO data for home page
-  useSEOAdvanced({
-    title: 'Maker Neon Platform - Newsletters Curadas & Drops Exclusivos',
-    description: 'Descubre la plataforma líder en newsletters curadas de tecnología maker y productos exclusivos. Únete a miles de makers que confían en nosotros.',
-    keywords: ['newsletters curadas', 'drops exclusivos', 'tecnología maker', 'productos premium', 'comunidad maker', 'impresión 3D'],
-    type: 'website',
-    structuredData: generateWebsiteStructuredData(),
-    breadcrumbs: false, // Homepage doesn't need breadcrumbs
-  });
-
-  // FAQ data for structured data
-  const faqData = [
-    {
-      question: '¿Qué incluye la suscripción premium?',
-      answer: 'Acceso completo a newsletters curadas, drops exclusivos, descuentos especiales y contenido premium para makers.'
-    },
-    {
-      question: '¿Con qué frecuencia se publican las newsletters?',
-      answer: 'Publicamos newsletters curadas semanalmente con el mejor contenido de tecnología maker, tendencias y novedades del sector.'
-    },
-    {
-      question: '¿Qué son los drops exclusivos?',
-      answer: 'Productos únicos y limitados seleccionados especialmente para nuestra comunidad, con acceso anticipado y precios especiales.'
-    },
-    {
-      question: '¿Puedo cancelar mi suscripción en cualquier momento?',
-      answer: 'Sí, puedes cancelar tu suscripción en cualquier momento desde tu panel de usuario sin compromisos.'
-    }
-  ];
-
-  React.useEffect(() => {
-    // Track page view
-    trackEvent({
-      action: 'page_view',
-      category: 'navigation',
-      label: 'homepage'
-    });
-
-    // Track scroll engagement
-    const handleScroll = () => {
-      const scrollPercent = Math.round(
-        (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
-      );
-      
-      if (scrollPercent >= 50) {
-        trackEngagement('scroll', { percentage: 50 });
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [trackEvent, trackEngagement]);
   const features = [
     {
       icon: Zap,
@@ -94,15 +33,7 @@ const Index = () => {
   ];
 
   return (
-    <>
-      <SEOHead
-        title="Maker Neon Platform - Newsletters Curadas & Drops Exclusivos"
-        description="Descubre la plataforma líder en newsletters curadas de tecnología maker y productos exclusivos. Únete a miles de makers que confían en nosotros."
-        keywords={['newsletters curadas', 'drops exclusivos', 'tecnología maker', 'productos premium', 'comunidad maker', 'impresión 3D']}
-        type="website"
-        structuredData={generateFAQStructuredData(faqData)}
-      />
-      <Layout>
+    <Layout>
       {/* Hero Section */}
       <HeroSection />
 
@@ -154,11 +85,7 @@ const Index = () => {
 
       {/* Final CTA Section */}
       <FinalCTA />
-
-      {/* Scroll to Top Button */}
-      <ScrollToTop />
     </Layout>
-    </>
   );
 };
 
