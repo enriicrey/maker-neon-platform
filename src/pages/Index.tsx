@@ -1,10 +1,11 @@
 
-import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Zap, Users, Rocket } from 'lucide-react';
 import Layout from '../components/Layout';
 import HeroSection from '../components/HeroSection';
 import BenefitsAndSocialProof from '../components/BenefitsAndSocialProof';
 import FinalCTA from '../components/FinalCTA';
+import ScrollToTop from '../components/ScrollToTop';
 
 const Index = () => {
   const features = [
@@ -85,6 +86,9 @@ const Index = () => {
 
       {/* Final CTA Section */}
       <FinalCTA />
+
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </Layout>
   );
 };

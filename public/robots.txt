@@ -1,53 +1,14 @@
-# Maker Neon Platform - SEO Optimized Robots.txt
-
-# Allow all crawlers access to main content
-User-agent: *
+User-agent: Googlebot
 Allow: /
-Allow: /newsletters/
-Allow: /drops/
-Allow: /about/
-Allow: /contact/
 
-# Disallow admin and private areas
-Disallow: /admin/
-Disallow: /dashboard/
-Disallow: /api/
-Disallow: /login/
-Disallow: /register/
-Disallow: /reset-password/
-Disallow: /cart/
-Disallow: /checkout/
+User-agent: Bingbot
+Allow: /
 
-# Disallow search and filter URLs to prevent duplicate content
-Disallow: /*?search=
-Disallow: /*?filter=
-Disallow: /*?sort=
-Disallow: /*?page=
-
-# Disallow temporary and test pages
-Disallow: /temp/
-Disallow: /test/
-Disallow: /404/
-
-# Allow specific crawlers for social media
 User-agent: Twitterbot
 Allow: /
-Allow: /newsletters/
-Allow: /drops/
 
 User-agent: facebookexternalhit
 Allow: /
-Allow: /newsletters/
-Allow: /drops/
 
-User-agent: LinkedInBot
+User-agent: *
 Allow: /
-Allow: /newsletters/
-Allow: /drops/
-
-# Reference to sitemap
-Sitemap: https://maker-neon-platform.lovable.app/sitemap.xml
-Sitemap: https://maker-neon-platform.lovable.app/sitemap-news.xml
-
-# Crawl delay for respectful crawling
-Crawl-delay: 1
