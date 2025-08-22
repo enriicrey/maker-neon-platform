@@ -8,15 +8,14 @@ import { formatDistanceToNow } from 'date-fns';
 
 export const NotificationBell: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { 
-    notifications, 
-    unreadCount, 
-    markAsRead, 
-    markAllAsRead, 
-    removeNotification,
-    requestPermission,
-    hasPermission 
-  } = useNotifications();
+  // Mock notifications data
+  const notifications: any[] = [];
+  const unreadCount = 0;
+  const markAsRead = (id: any) => {};
+  const markAllAsRead = () => {};
+  const removeNotification = (id: any) => {};
+  const requestPermission = () => {};
+  const hasPermission = false;
 
   const handleNotificationClick = (notification: any) => {
     markAsRead(notification.id);

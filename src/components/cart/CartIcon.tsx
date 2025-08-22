@@ -1,10 +1,12 @@
 
 import React from 'react';
 import { ShoppingCart } from 'lucide-react';
-import { useCart } from '@/contexts/CartContext';
+// import { useCart } from '@/contexts/CartContext'; // Temporarily disabled
 
 const CartIcon: React.FC = () => {
-  const { state, dispatch } = useCart();
+  // Mock cart data
+  const state = { items: [] };
+  const dispatch = (action: any) => {};
   
   const itemCount = state.items.reduce((sum, item) => sum + item.quantity, 0);
 

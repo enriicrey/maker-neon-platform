@@ -31,7 +31,9 @@ interface Product {
 
 const ProductDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { state: cartState, dispatch } = useCart();
+  // Mock cart data
+  const cartState = { items: [] };
+  const dispatch = (action: any) => {};
 
   // Mock product data for demonstration
   const mockProduct: Product = {

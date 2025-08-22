@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom';
 import { Trash2, Plus, Minus, ShoppingBag, Tag, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useCart } from '@/contexts/CartContext';
+// import { useCart } from '@/contexts/CartContext'; // Temporarily disabled
 import Layout from '@/components/Layout';
 
 const Cart: React.FC = () => {
-  const { state, dispatch } = useCart();
+  // Mock cart data
+  const state = { items: [], total: 0, subtotal: 0, shipping: 0, tax: 0, currency: '€', discountAmount: 0, discountCode: undefined };
+  const dispatch = (action: any) => {};
   const [discountCode, setDiscountCode] = useState('');
   const [discountError, setDiscountError] = useState('');
   const [discountSuccess, setDiscountSuccess] = useState('');

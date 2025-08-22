@@ -2,11 +2,13 @@
 import React from 'react';
 import { X, Plus, Minus, Trash2, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useCart } from '@/contexts/CartContext';
+// import { useCart } from '@/contexts/CartContext'; // Temporarily disabled
 import { Link } from 'react-router-dom';
 
 const CartSlideout: React.FC = () => {
-  const { state, dispatch } = useCart();
+  // Mock cart data
+  const state = { items: [], isOpen: false, total: 0, subtotal: 0, shipping: 0, tax: 0, currency: '€' };
+  const dispatch = (action: any) => {};
 
   const handleUpdateQuantity = (id: string, quantity: number) => {
     dispatch({ type: 'UPDATE_QUANTITY', payload: { id, quantity } });

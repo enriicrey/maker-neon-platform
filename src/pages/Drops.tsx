@@ -18,7 +18,8 @@ const Drops = () => {
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [compareList, setCompareList] = useState<string[]>([]);
   
-  const { addNotification } = useNotifications();
+  // Mock notifications
+  const addNotification = (notification: any) => {};
 
   // Mock next drop date (2 days from now)
   const nextDropDate = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000 + 14 * 60 * 60 * 1000 + 23 * 60 * 1000);

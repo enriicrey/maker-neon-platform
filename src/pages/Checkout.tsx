@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import { CreditCard, Truck, MapPin, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useCart } from '@/contexts/CartContext';
+// import { useCart } from '@/contexts/CartContext'; // Temporarily disabled
 import Layout from '@/components/Layout';
 
 const Checkout: React.FC = () => {
-  const { state } = useCart();
+  // Mock cart data
+  const state = { items: [], total: 0, subtotal: 0, shipping: 0, tax: 0, currency: '€', discountAmount: 0 };
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     email: '',
