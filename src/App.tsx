@@ -11,10 +11,6 @@ import LoadingSpinner from './components/ui/loading-spinner';
 import ErrorBoundary from './components/ErrorBoundary';
 import { usePerformanceMonitor } from './hooks/usePerformanceMonitor';
 import { setCSPHeaders } from './utils/security';
-import InstallPrompt from './components/pwa/InstallPrompt';
-import UpdateNotification from './components/pwa/UpdateNotification';
-import OfflineIndicator from './components/pwa/OfflineIndicator';
-import BottomNavigation from './components/mobile/BottomNavigation';
 
 // Lazy load pages for better performance
 const Index = lazy(() => import('./pages/Index'));
@@ -99,10 +95,6 @@ function App() {
                     </Suspense>
                     <Toaster />
                     <ScrollToTop />
-                    <InstallPrompt />
-                    <UpdateNotification />
-                    <OfflineIndicator />
-                    <BottomNavigation />
                   </SubscriptionProvider>
                 </NotificationProvider>
               </CartProvider>
