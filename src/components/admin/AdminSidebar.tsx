@@ -29,11 +29,6 @@ const menuItems: SidebarItem[] = [
     icon: LayoutDashboard,
   },
   {
-    title: 'Analytics',
-    href: '/admin/analytics',
-    icon: BarChart3,
-  },
-  {
     title: 'Newsletters',
     href: '/admin/newsletters',
     icon: Mail,
@@ -55,6 +50,11 @@ const menuItems: SidebarItem[] = [
     href: '/admin/orders',
     icon: ShoppingCart,
     badge: 5,
+  },
+  {
+    title: 'Analytics',
+    href: '/admin/analytics',
+    icon: BarChart3,
   },
   {
     title: 'Configuración',
