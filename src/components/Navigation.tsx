@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { X, User, LogOut } from 'lucide-react';
 import CartIcon from '@/components/cart/CartIcon';
 import { NotificationBell } from '@/components/notifications/NotificationBell';
-import { useAuth } from '@/contexts/AuthContext';
+// import { useAuth } from '@/contexts/AuthContext'; // Temporarily disabled
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -16,7 +16,17 @@ import {
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { user, logout, isLoading } = useAuth();
+  // Mock user data for testing
+  const user = { 
+    name: 'Maker', 
+    email: 'maker@soymaker3d.com',
+    id: '1',
+    avatar: null 
+  };
+  const isLoading = false;
+  const logout = () => {
+    console.log('Logout clicked - mock action');
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
